@@ -67,6 +67,10 @@ class TranslatorDetails {
     }
 
     public set authorisation_languages(auth_langs: MultiLingualText[]) {
+
+        if (auth_langs.length === 0)
+            throw new Error("At least one language must be provided for the translator");
+
         // NOTE: There is NO reason why `languages.ROMANIAN` should be in this list!
         if (auth_langs.includes(languages.ROMANIAN))
             throw new Error(`When setting the translator details, ${languages.ROMANIAN.EN} must not be included!`);
