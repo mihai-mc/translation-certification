@@ -3,23 +3,23 @@ import type { Language } from "./translation";
 
 
 const page_suffix = Object.freeze({
-    SINGULAR: new MultiLingualText("pagină", "page"),
-    PLURAL: new MultiLingualText("pagini", "pages"),
-}) satisfies Readonly<Record<string, MultiLingualText>>;
+    SINGULAR: Object.freeze(new MultiLingualText("pagină", "page")),
+    PLURAL: Object.freeze(new MultiLingualText("pagini", "pages")),
+});
 
 type PageSuffix = typeof page_suffix[keyof typeof page_suffix];
 
 const text_part = Object.freeze({
-    FULL: new MultiLingualText("întregime", "full"),
-    EXCERPT: new MultiLingualText("extras", "excerpt"),
-}) satisfies Readonly<Record<string, MultiLingualText>>;
+    FULL: Object.freeze(new MultiLingualText("întregime", "full")),
+    EXCERPT: Object.freeze(new MultiLingualText("extras", "excerpt")),
+});
 
 type TextPart = typeof text_part[keyof typeof text_part];
 
 const document_heading = Object.freeze({
-    NAME: new MultiLingualText("denumirea", "name"),
-    TITLE: new MultiLingualText("titlul", "title"),
-}) satisfies Readonly<Record<string, MultiLingualText>>;
+    NAME: Object.freeze(new MultiLingualText("denumirea", "name")),
+    TITLE: Object.freeze(new MultiLingualText("titlul", "title")),
+});
 
 type DocumentHeading = typeof document_heading[keyof typeof document_heading];
 
@@ -51,7 +51,7 @@ class DocumentDetails {
 
     // NOTE: Helper function to avoid logic duplication
     private validateNumberOfPages(n: number) {
-        if (n <= 0 || !Number.isInteger(n))
+        if (!Number.isInteger(n) || n <= 0)
             throw new Error("Invalid number of pages");
         const upper_threshold: number = 100000;
         if (n > upper_threshold)
