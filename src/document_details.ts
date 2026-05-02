@@ -95,9 +95,14 @@ class DocumentDetails {
         return this.pageSuffix(this._translated_number_of_pages);
     }
 
-    public set text_seen_in(other_text_part: TextPart) {
-        if (other_text_part === text_part.EXCERPT && this._translation_requested_in === text_part.FULL)
+    private validateTextAndTranslationParts(document_text_part: TextPart, translation_text_part: TextPart) {
+        if(document_text_part === text_part.EXCERPT && translation_text_part === text_part.FULL)
             throw new Error(`Cannot translate the text in ${text_part.FULL.EN} if it was only seen in ${text_part.EXCERPT.EN}!`);
+        return;
+    }
+
+    public set text_seen_in(other_text_part: TextPart) {
+        this.validateTextAndTranslationParts(other_text_part, this._translation_requested_in);
 
         this._text_seen_in = other_text_part;
     }
@@ -106,11 +111,10 @@ class DocumentDetails {
         return this._text_seen_in;
     }
 
-    public set translation_requested_in(other_text_part: TextPart) {
-        if (this._text_seen_in === text_part.EXCERPT && other_text_part === text_part.FULL)
-            throw new Error(`Cannot translate the text in ${text_part.FULL.EN} if it was only seen in ${text_part.EXCERPT.EN}!`);
+    public set translation_requested_in(translation_text_part: TextPart) {
+        this.validateTextAndTranslationParts(this._text_seen_in, translation_text_part);
 
-        this._translation_requested_in = other_text_part;
+        this._translation_requested_in = translation_text_part;
     }
 
     public get translation_requested_in(): TextPart {
@@ -141,6 +145,7 @@ class DocumentDetails {
         return this._issuing_authority;
     }
 
+    // NOTE: Helper function to avoid logic duplication
     private validateDocumentAndTranslationLanguages(document_lang: Language, translation_lang: Language) {
         if (document_lang === translation_lang)
             throw new Error("The document language and the translation language must be different");
