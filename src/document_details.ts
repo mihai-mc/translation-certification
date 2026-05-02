@@ -1,4 +1,5 @@
 import { MultiLingualText, languages } from "./translation";
+import type { Language } from "./translation";
 
 
 const page_suffix = Object.freeze({
@@ -33,8 +34,8 @@ class DocumentDetails {
     private _document_name: MultiLingualText;
     private _issuing_authority: MultiLingualText;
 
-    private _document_language: MultiLingualText;
-    private _translation_language: MultiLingualText;
+    private _document_language: Language;
+    private _translation_language: Language;
 
     public constructor() {
         this._number_of_pages = 1;
@@ -140,29 +141,29 @@ class DocumentDetails {
         return this._issuing_authority;
     }
 
-    private validateDocumentAndTranslationLanguages(document_lang: MultiLingualText, translation_lang: MultiLingualText) {
+    private validateDocumentAndTranslationLanguages(document_lang: Language, translation_lang: Language) {
         if (document_lang === translation_lang)
             throw new Error("The document language and the translation language must be different");
         return;
     }
 
-    public set document_language(lang: MultiLingualText) {
+    public set document_language(lang: Language) {
         this.validateDocumentAndTranslationLanguages(lang, this._translation_language);
 
         this._document_language = lang;
     }
 
-    public get document_language(): MultiLingualText {
+    public get document_language(): Language {
         return this._document_language;
     }
 
-    public set translation_language(lang: MultiLingualText) {
+    public set translation_language(lang: Language) {
         this.validateDocumentAndTranslationLanguages(this._document_language, lang);
 
         this._translation_language = lang;
     }
 
-    public get translation_language(): MultiLingualText {
+    public get translation_language(): Language {
         return this._translation_language;
     }
 }

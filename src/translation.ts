@@ -25,7 +25,9 @@ export class MultiLingualText {
 }
 
 export const languages = Object.freeze({
-    ROMANIAN: new MultiLingualText("română", "Romanian"),
-    ENGLISH: new MultiLingualText("engleză", "English")
-}) satisfies Readonly<Record<string, MultiLingualText>>;
+    ROMANIAN: Object.freeze(new MultiLingualText("română", "Romanian")),
+    ENGLISH: Object.freeze(new MultiLingualText("engleză", "English"))
+});
+
+export type Language = typeof languages[keyof typeof languages];
 
