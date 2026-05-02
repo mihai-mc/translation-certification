@@ -3,13 +3,13 @@ import { MultiLingualText, languages } from "./translation";
 
 class TranslatorDetails {
     private _name: string;
-    private _authorisation_no: number | string;
+    private _authorisation_no: string;
     private _authorisation_date: Date;
     private _authorisation_languages: MultiLingualText[];
 
     public constructor() {
         this._name = "OLTEANU Mihai-Cristian";
-        this._authorisation_no = 39429;
+        this._authorisation_no = "39429";
         this._authorisation_date = new Date(2026, 3, 25); // NOTE: months are 0-indexed for some obscure reason
         this._authorisation_languages = [languages.ENGLISH];
     }
@@ -29,6 +29,8 @@ class TranslatorDetails {
     public set authorisation_no(auth_no: string) {
         // NOTE: Sometimes, the Romanian Ministry of Justice (MJ) issues numbers that are NOT numbers
         //       In such cases, the "*bis" suffix is added. Cute, I know...
+        const other_auth_no = auth_no;
+        
         const MJ_suffix = "bis";
         if (auth_no.endsWith(MJ_suffix))
             auth_no = auth_no.slice(0, -MJ_suffix.length);
@@ -41,10 +43,11 @@ class TranslatorDetails {
         if (auth_number > plausible_limit)
             throw new Error(`There is NO way the Romanian Ministry of Justice managed to issue more than ${plausible_limit} authorisations since 2026!`);
 
-        this._authorisation_no = auth_number;
+        // If everything passed, assign the original/unaltered authorisation number we had saved at the beginning
+        this._authorisation_no = other_auth_no;
     }
 
-    public get authorisation_no(): string | number {
+    public get authorisation_no(): string {
         return this._authorisation_no;
     }
 
