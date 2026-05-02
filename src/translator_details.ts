@@ -2,7 +2,7 @@ import { languages } from "./translation";
 import type { Language } from "./translation";
 
 
-class TranslatorDetails {
+export class TranslatorDetails {
     private _name: string;
     private _authorisation_no: string;
     private _authorisation_date: Date;
@@ -31,7 +31,7 @@ class TranslatorDetails {
         // NOTE: Sometimes, the Romanian Ministry of Justice (MJ) issues numbers that are NOT numbers
         //       In such cases, the "*bis" suffix is added. Cute, I know...
         const other_auth_no = auth_no;
-        
+
         const MJ_suffix = "bis";
         if (auth_no.endsWith(MJ_suffix))
             auth_no = auth_no.slice(0, -MJ_suffix.length);
@@ -76,7 +76,7 @@ class TranslatorDetails {
         if (auth_langs.includes(languages.ROMANIAN))
             throw new Error(`When setting the translator details, ${languages.ROMANIAN.EN} must not be included!`);
 
-        this._authorisation_languages = [... auth_langs];
+        this._authorisation_languages = [...auth_langs];
     }
 
     public get authorisation_languages(): Language[] {

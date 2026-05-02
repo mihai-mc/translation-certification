@@ -10,7 +10,7 @@ const payment_methods = Object.freeze({
 type PaymentMethod = typeof payment_methods[keyof typeof payment_methods];
 
 
-class PaymentDetails {
+export class PaymentDetails {
 
     private _translation_request_id: string;
     private _translation_request_date: Date;
@@ -44,7 +44,7 @@ class PaymentDetails {
             && translation_date.getDate() === pay_date.getDate()
         )
             return; // NOTE: It's fine if they happen to fall on the same calendar day
-        
+
         if (pay_date < translation_date)
             throw new Error("Payment date cannot be BEFORE the translation request date !");
         return;
@@ -72,7 +72,7 @@ class PaymentDetails {
         if (amount_in_cents < 0)
             throw new Error("Cannot charge negative amount in cents");
 
-        if(!Number.isInteger(amount_in_cents))
+        if (!Number.isInteger(amount_in_cents))
             throw new Error("Amounts in cents must be integers!");
 
         this._payment_amount_in_cents = amount_in_cents;

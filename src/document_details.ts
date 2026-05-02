@@ -24,7 +24,7 @@ const document_heading = Object.freeze({
 type DocumentHeading = typeof document_heading[keyof typeof document_heading];
 
 
-class DocumentDetails {
+export class DocumentDetails {
     private _number_of_pages: number;
     private _translated_number_of_pages: number;
     private _text_seen_in: TextPart;
@@ -96,7 +96,7 @@ class DocumentDetails {
     }
 
     private validateTextAndTranslationParts(document_text_part: TextPart, translation_text_part: TextPart) {
-        if(document_text_part === text_part.EXCERPT && translation_text_part === text_part.FULL)
+        if (document_text_part === text_part.EXCERPT && translation_text_part === text_part.FULL)
             throw new Error(`Cannot translate the text in ${text_part.FULL.EN} if it was only seen in ${text_part.EXCERPT.EN}!`);
         return;
     }
