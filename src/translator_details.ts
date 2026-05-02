@@ -30,7 +30,7 @@ class TranslatorDetails {
     public set name(otherName: string) {
         const character_limit: number = 128
         if (otherName.length >= character_limit)
-            throw Error(`Please trim input to strictly under ${character_limit} characters`);
+            throw new Error(`Please trim input to strictly under ${character_limit} characters`);
 
         this._name = otherName;
     }
@@ -48,11 +48,11 @@ class TranslatorDetails {
 
         const auth_number = Number(auth_no);
         if (!Number.isInteger(auth_number) || auth_number < 0)
-            throw Error("That's not a valid authorisation number!");
+            throw new Error("That's not a valid authorisation number!");
 
         const plausible_limit = 60000;
         if (auth_number > plausible_limit)
-            throw Error(`There is NO way the Romanian Ministry of Justice managed to issue more than ${plausible_limit} authorisations since 2026!`);
+            throw new Error(`There is NO way the Romanian Ministry of Justice managed to issue more than ${plausible_limit} authorisations since 2026!`);
 
         this._authorisation_no = auth_number;
     }
@@ -67,7 +67,7 @@ class TranslatorDetails {
         const upper_threshold = new Date(); // today's date, whatever that may be
 
         if (auth_date < lower_threshold || auth_date > upper_threshold)
-            throw Error("Check that translator authorisation date again, something's wrong!")
+            throw new Error("Check that translator authorisation date again, something's wrong!")
 
         this._authorisation_date = auth_date;
     }
@@ -79,7 +79,7 @@ class TranslatorDetails {
     public set authorisation_languages(auth_langs: Language[]) {
         // NOTE: There is NO reason why `languages.ROMANIAN` should be in this list!
         if (auth_langs.includes(languages.ROMANIAN))
-            throw Error(`When setting the translator details, ${languages.ROMANIAN.EN} must not be included!`);
+            throw new Error(`When setting the translator details, ${languages.ROMANIAN.EN} must not be included!`);
 
         this._authorisation_languages = auth_langs;
     }
