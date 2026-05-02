@@ -140,9 +140,15 @@ class DocumentDetails {
         return this._issuing_authority;
     }
 
-    public set document_language(lang: MultiLingualText) {
-        if (this._translation_language === lang)
+    private validateDocumentAndTranslationLanguages(document_lang: MultiLingualText, translation_lang: MultiLingualText) {
+        if (document_lang === translation_lang)
             throw new Error("The document language and the translation language must be different");
+        return;
+    }
+
+    public set document_language(lang: MultiLingualText) {
+        this.validateDocumentAndTranslationLanguages(lang, this._translation_language);
+
         this._document_language = lang;
     }
 
@@ -151,8 +157,8 @@ class DocumentDetails {
     }
 
     public set translation_language(lang: MultiLingualText) {
-        if(this._document_language === lang)
-            throw new Error("The document language and the translation language must be different");
+        this.validateDocumentAndTranslationLanguages(this._document_language, lang);
+
         this._translation_language = lang;
     }
 
