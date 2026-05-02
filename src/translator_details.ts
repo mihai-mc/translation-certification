@@ -59,11 +59,11 @@ class TranslatorDetails {
         if (auth_date < lower_threshold || auth_date > upper_threshold)
             throw new Error("Check that translator authorisation date again, something's wrong!")
 
-        this._authorisation_date = auth_date;
+        this._authorisation_date = new Date(auth_date);
     }
 
     public get translator_auth_date(): Date {
-        return this._authorisation_date;
+        return new Date(this._authorisation_date);
     }
 
     public set authorisation_languages(auth_langs: MultiLingualText[]) {
@@ -71,10 +71,10 @@ class TranslatorDetails {
         if (auth_langs.includes(languages.ROMANIAN))
             throw new Error(`When setting the translator details, ${languages.ROMANIAN.EN} must not be included!`);
 
-        this._authorisation_languages = auth_langs;
+        this._authorisation_languages = [... auth_langs];
     }
 
     public get authorisation_languages(): MultiLingualText[] {
-        return this._authorisation_languages;
+        return [... this._authorisation_languages];
     }
 }
