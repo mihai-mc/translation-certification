@@ -1,11 +1,12 @@
-import { MultiLingualText, languages } from "./translation";
+import { languages } from "./translation";
+import type { Language } from "./translation";
 
 
 class TranslatorDetails {
     private _name: string;
     private _authorisation_no: string;
     private _authorisation_date: Date;
-    private _authorisation_languages: MultiLingualText[];
+    private _authorisation_languages: Language[];
 
     public constructor() {
         this._name = "OLTEANU Mihai-Cristian";
@@ -66,7 +67,7 @@ class TranslatorDetails {
         return new Date(this._authorisation_date);
     }
 
-    public set authorisation_languages(auth_langs: MultiLingualText[]) {
+    public set authorisation_languages(auth_langs: Language[]) {
 
         if (auth_langs.length === 0)
             throw new Error("At least one language must be provided for the translator");
@@ -78,7 +79,7 @@ class TranslatorDetails {
         this._authorisation_languages = [... auth_langs];
     }
 
-    public get authorisation_languages(): MultiLingualText[] {
+    public get authorisation_languages(): Language[] {
         return [... this._authorisation_languages];
     }
 }
