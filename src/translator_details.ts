@@ -23,7 +23,7 @@ class TranslatorDetails {
     public constructor() {
         this._name = "OLTEANU Mihai-Cristian";
         this._authorisation_no = 39429;
-        this._authorisation_date = new Date(2026, 4, 25);
+        this._authorisation_date = new Date(2026, 3, 25); // NOTE: months are 0-indexed for some obscure reason
         this._authorisation_languages = [languages.ENGLISH];
     }
 
