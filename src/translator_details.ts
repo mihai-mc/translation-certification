@@ -1,24 +1,11 @@
-
-
-const languages = {
-    ROMANIAN: {
-        RO: "română",
-        EN: "Romanian"
-    },
-    ENGLISH: {
-        RO: "engleză",
-        EN: "English"
-    }
-} as const;
-
-type Language = typeof languages[keyof typeof languages];
+import { MultiLingualText, languages } from "./translation";
 
 
 class TranslatorDetails {
     private _name: string;
     private _authorisation_no: number | string;
     private _authorisation_date: Date;
-    private _authorisation_languages: Language[];
+    private _authorisation_languages: MultiLingualText[];
 
     public constructor() {
         this._name = "OLTEANU Mihai-Cristian";
@@ -76,7 +63,7 @@ class TranslatorDetails {
         return this._authorisation_date;
     }
 
-    public set authorisation_languages(auth_langs: Language[]) {
+    public set authorisation_languages(auth_langs: MultiLingualText[]) {
         // NOTE: There is NO reason why `languages.ROMANIAN` should be in this list!
         if (auth_langs.includes(languages.ROMANIAN))
             throw new Error(`When setting the translator details, ${languages.ROMANIAN.EN} must not be included!`);
@@ -84,7 +71,7 @@ class TranslatorDetails {
         this._authorisation_languages = auth_langs;
     }
 
-    public get authorisation_languages(): Language[] {
+    public get authorisation_languages(): MultiLingualText[] {
         return this._authorisation_languages;
     }
 }
