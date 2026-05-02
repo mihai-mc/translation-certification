@@ -53,7 +53,7 @@ class DocumentDetails {
     private validateNumberOfPages(n: number) {
         if (!Number.isInteger(n) || n <= 0)
             throw new Error("Invalid number of pages");
-        const upper_threshold: number = 100000;
+        const upper_threshold: number = 10000;
         if (n > upper_threshold)
             throw new Error(`There is no way on Earth you translated more than ${upper_threshold} pages`);
         return;
