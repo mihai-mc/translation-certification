@@ -53,7 +53,7 @@ class TranslatorDetails {
 
     public set authorisation_date(auth_date: Date) {
         // Law 178/1997 came in force in 1997 but we'll allow a small
-        const lower_threshold = new Date(1990, 1, 1);
+        const lower_threshold = new Date(1990, 0, 1);  // NOTE: Months are 0-indexed for some obscure reason
         const upper_threshold = new Date(); // today's date, whatever that may be
 
         if (auth_date < lower_threshold || auth_date > upper_threshold)
