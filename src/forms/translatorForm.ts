@@ -1,31 +1,32 @@
 import { TranslatorDetails, genders } from "@/models/translator_details";
 import { languages } from "@/models/translation";
+import { safeSet } from "@/forms/common";
 
-export const translatorFormId: string = "translator-form";
+const translatorFormId: string = "translator-form";
 
 const translator = new TranslatorDetails();
 
-const container = document.getElementById(translatorFormId);
+const container = document.getElementById(translatorFormId)!;
 
-container!.innerHTML = `
+container.innerHTML = `
     <h2>Translator Details</h2>
 
-    <label for="name">Translator Name</label>
+    <label for="${translatorFormId}-name">Translator Name</label>
     <input type="text" id="${translatorFormId}-name" value="${translator.name}" />
 
-    <label for="gender">Gender</label>
+    <label for="${translatorFormId}-gender">Gender</label>
     <select id="${translatorFormId}-gender">
         <option value="${genders.MALE}">${genders.MALE}</option>
         <option value="${genders.FEMALE}">${genders.FEMALE}</option>
     </select>
 
-    <label for="auth_no">Authorisation Number</label>
+    <label for="${translatorFormId}-auth_no">Authorisation Number</label>
     <input type="text" id="${translatorFormId}-auth_no" value="${translator.authorisation_no}"/>
 
-    <label for="auth_date">Authorisation Date</label>
+    <label for="${translatorFormId}-auth_date">Authorisation Date</label>
     <input type="date" id="${translatorFormId}-auth_date" value="${translator.translator_auth_date.toISOString().split("T")[0]}"/>
 
-    <label for="auth_languages">Authorised Languages</label>
+    <label for="${translatorFormId}-auth_languages">Authorised Languages</label>
     <select id="${translatorFormId}-auth_languages" multiple>
         <option value="ENGLISH" selected>${languages.ENGLISH.EN}</option>
         <!-- <option value="ROMANIAN">${languages.ROMANIAN.EN}</option> -->
@@ -34,17 +35,8 @@ container!.innerHTML = `
     <button id="${translatorFormId}-validate">Validate</button>
 
     <label for="${translatorFormId}-out">Validation Messages</label>
-    <pre id="${translatorFormId}-out">Empty</pre>
+    <pre id="${translatorFormId}-out">Validation not yet run</pre>
 `;
-
-function safeSet<T>(func: () => void, errors: string[]) {
-    try {
-        func();
-    }
-    catch (e) {
-        errors.push((e as Error).message);
-    }
-}
 
 function validateTranslator() {
 
@@ -82,5 +74,7 @@ function validateTranslator() {
         pre_out.textContent = "Validation successful ✅";
         pre_out.style.color = "lightgreen";
     }
+
+    return translatorDetails;
 }
 document.getElementById(`${translatorFormId}-validate`)!.addEventListener("click", validateTranslator);

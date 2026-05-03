@@ -9,14 +9,14 @@ const page_suffix = Object.freeze({
 
 type PageSuffix = typeof page_suffix[keyof typeof page_suffix];
 
-const text_part = Object.freeze({
+export const text_part = Object.freeze({
     FULL: Object.freeze(new MultiLingualText("întregime", "full")),
     EXCERPT: Object.freeze(new MultiLingualText("extras", "excerpt")),
 });
 
 type TextPart = typeof text_part[keyof typeof text_part];
 
-const document_heading = Object.freeze({
+export const document_heading = Object.freeze({
     NAME: Object.freeze(new MultiLingualText("denumirea", "name")),
     TITLE: Object.freeze(new MultiLingualText("titlul", "title")),
 });
@@ -24,6 +24,7 @@ const document_heading = Object.freeze({
 type DocumentHeading = typeof document_heading[keyof typeof document_heading];
 
 
+// FIXME: Need to refactor validation across ALL models
 export class DocumentDetails {
     private _number_of_pages: number;
     private _translated_number_of_pages: number;
@@ -146,15 +147,13 @@ export class DocumentDetails {
     }
 
     // NOTE: Helper function to avoid logic duplication
-    private validateDocumentAndTranslationLanguages(document_lang: Language, translation_lang: Language) {
-        if (document_lang === translation_lang)
+    public validateDocumentAndTranslationLanguages() {
+        if (this.document_language === this.translation_language)
             throw new Error("The document language and the translation language must be different");
         return;
     }
 
     public set document_language(lang: Language) {
-        this.validateDocumentAndTranslationLanguages(lang, this._translation_language);
-
         this._document_language = lang;
     }
 
@@ -163,8 +162,6 @@ export class DocumentDetails {
     }
 
     public set translation_language(lang: Language) {
-        this.validateDocumentAndTranslationLanguages(this._document_language, lang);
-
         this._translation_language = lang;
     }
 
