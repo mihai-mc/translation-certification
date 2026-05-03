@@ -1,6 +1,6 @@
-import { TranslatorDetails, genders } from "./translator_details";
-import { DocumentDetails } from "./document_details";
-import { PaymentDetails } from "./payment_details";
+import { TranslatorDetails, genders } from "@/models/translator_details";
+import { DocumentDetails } from "@/models/document_details";
+import { PaymentDetails } from "@/models/payment_details";
 
 class Certification {
     public translator_details: TranslatorDetails;
