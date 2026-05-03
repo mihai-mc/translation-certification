@@ -1,15 +1,23 @@
 import { languages } from "./translation";
 import type { Language } from "./translation";
 
+export const genders = Object.freeze({
+    MALE: "MALE",
+    FEMALE: "FEMALE"
+} as const);
+
+export type Gender = typeof genders[keyof typeof genders];
 
 export class TranslatorDetails {
     private _name: string;
+    private _gender: Gender;
     private _authorisation_no: string;
     private _authorisation_date: Date;
     private _authorisation_languages: Language[];
 
     public constructor() {
         this._name = "OLTEANU Mihai-Cristian";
+        this._gender = genders.MALE;
         this._authorisation_no = "39429";
         this._authorisation_date = new Date(2026, 3, 25); // NOTE: months are 0-indexed for some obscure reason
         this._authorisation_languages = [languages.ENGLISH];
@@ -25,6 +33,14 @@ export class TranslatorDetails {
 
     public get name(): string {
         return this._name;
+    }
+
+    public set gender(otherGender: Gender) {
+        this._gender = otherGender;
+    }
+
+    public get gender(): Gender {
+        return this._gender;
     }
 
     public set authorisation_no(auth_no: string) {

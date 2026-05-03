@@ -1,4 +1,4 @@
-import { TranslatorDetails } from "./translator_details";
+import { TranslatorDetails, genders } from "./translator_details";
 import { DocumentDetails } from "./document_details";
 import { PaymentDetails } from "./payment_details";
 
@@ -14,8 +14,14 @@ class Certification {
     }
 
     private certification_in_ro(): string[] {
+
+        // NOTE: These only happen in Romanian, so I'm not going to handle it via `MultiLingualText` for now
+        const language_suffix: string = this.translator_details.authorisation_languages.length == 1 ? "limba" : "limbile";
+        const undersigned_N: string = this.translator_details.gender == genders.MALE ? "Subsemnatul" : "Subsemnata";
+        const undersigned_G: string = this.translator_details.gender == genders.MALE ? "subsemnatului" : "subsemnatei";
+
         const paragraph_1: string =
-            `Subsemnatul, **${this.translator_details.name}**, interpret și traducător autorizat pentru limba 
+            `${undersigned_N}, **${this.translator_details.name}**, interpret și traducător autorizat pentru ${language_suffix} 
             **${this.translator_details.authorisation_languages.map(x => x.RO).join(", ")}**, în temeiul Autorizației 
             nr. **${this.translator_details.authorisation_no}**, eliberată de Ministerul Justiției din România, certific 
             exactitatea traducerii efectuate din limba **${this.document_details.document_language.RO}** în limba 
@@ -34,7 +40,7 @@ class Certification {
             `Traducerea înscrisului prezentat are un număr de **${this.document_details.translated_number_of_pages}** 
             ${this.document_details.translated_page_suffix.RO} și a fost efectuată potrivit cererii scrise înregistrate 
             cu nr. **${this.payment_details.translation_request_id}\/${this.payment_details.translation_request_date}**, 
-            păstrate în arhiva subsemnatului.`;
+            păstrate în arhiva ${undersigned_G}.`;
 
         const paragraph_4: string = 
             `S-a încasat onorariul de **${(this.payment_details.payment_amount_in_cents / 100).toFixed(2)}** lei, cu 
