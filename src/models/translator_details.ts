@@ -27,6 +27,8 @@ export class TranslatorDetails {
         const character_limit: number = 128
         if (otherName.length >= character_limit)
             throw new Error(`Please trim input to strictly under ${character_limit} characters`);
+        if(otherName.length === 0)
+            throw new Error("You forgot to add the translator's name");
 
         this._name = otherName;
     }
@@ -87,6 +89,11 @@ export class TranslatorDetails {
 
         if (auth_langs.length === 0)
             throw new Error("At least one language must be provided for the translator");
+
+        const languages_set = new Set(Object.values(languages));
+        for (const auth_lang of auth_langs)
+            if(!languages_set.has(auth_lang))
+                throw new Error("That's not a valid option for the authorised languages");
 
         // NOTE: There is NO reason why `languages.ROMANIAN` should be in this list!
         if (auth_langs.includes(languages.ROMANIAN))
