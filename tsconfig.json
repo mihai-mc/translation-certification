@@ -6,6 +6,11 @@
     "types": ["vite/client"],
     "skipLibCheck": true,
 
+    /* Rely on absolute paths */
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+
     /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,

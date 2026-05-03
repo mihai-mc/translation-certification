@@ -1,4 +1,4 @@
-import { MultiLingualText } from "./translation";
+import { MultiLingualText } from "@/models/translation";
 
 
 const payment_methods = Object.freeze({

@@ -1,5 +1,5 @@
-import { MultiLingualText, languages } from "./translation";
-import type { Language } from "./translation";
+import { MultiLingualText, languages } from "@/models/translation";
+import type { Language } from "@/models/translation";
 
 
 const page_suffix = Object.freeze({

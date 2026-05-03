@@ -1,5 +1,5 @@
-import { languages } from "./translation";
-import type { Language } from "./translation";
+import { languages } from "@/models/translation";
+import type { Language } from "@/models/translation";
 
 export const genders = Object.freeze({
     MALE: "MALE",
