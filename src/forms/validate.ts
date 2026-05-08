@@ -2,11 +2,12 @@ import { validateTranslator } from "./translatorForm";
 import { validateDocumentDetails } from "./documentForm";
 import { validatePaymentForm } from "./paymentForm";
 
-const validateAllButtonId: string = "validate-all";
+const certificationId: string = "certification";
 
-const container = document.getElementById(validateAllButtonId)!;
+const container = document.getElementById(certificationId)!;
 container.innerHTML = `
-    <button id="${validateAllButtonId}-button">Validate all forms</button>
+    <button id="${certificationId}-validation">Validate all forms</button>
+    <button id="${certificationId}-generate">Generate .docx</button>
 `;
 
 function validateAll() {
@@ -14,4 +15,9 @@ function validateAll() {
     validateDocumentDetails();
     validatePaymentForm();
 }
-document.getElementById(`${validateAllButtonId}`)!.addEventListener("click", validateAll);
+document.getElementById(`${certificationId}-validation`)!.addEventListener("click", validateAll);
+
+function generateCertification() {
+    alert("Not yet implemented");
+}
+document.getElementById(`${certificationId}-generate`)!.addEventListener("click", generateCertification);

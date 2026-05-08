@@ -62,14 +62,15 @@ button:hover {
     width: 100%;
 }
 
-.validate-all-button {
+.certification-wrapper {
     display: flex;
     justify-content: center;
+    gap: 1rem;
     margin: 1rem 0;
 }
 
-.validate-all-button button {
-    font-size: 2rem;
+.certification-wrapper button {
+    font-size: 1.5rem;
 }
 
 .form-card pre {
