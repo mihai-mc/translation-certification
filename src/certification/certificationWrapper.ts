@@ -1,6 +1,6 @@
-import { validateTranslator } from "./translatorForm";
-import { validateDocumentDetails } from "./documentForm";
-import { validatePaymentForm } from "./paymentForm";
+import { validateTranslator } from "@/forms/translatorForm";
+import { validateDocumentDetails } from "@/forms/documentForm";
+import { validatePaymentForm } from "@/forms/paymentForm";
 
 const certificationId: string = "certification";
 
