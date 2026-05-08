@@ -38,7 +38,7 @@ container.innerHTML = `
     <pre id="${translatorFormId}-out">Validation not yet run</pre>
 `;
 
-function validateTranslator() {
+export function validateTranslator() {
 
     // Gather data
     const translatorDetails = new TranslatorDetails();

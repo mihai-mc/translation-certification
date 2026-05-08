@@ -48,7 +48,7 @@ container.innerHTML = `
     <pre id="${paymentFormId}-out">Validation not yet run</pre>
 `;
 
-function validatePaymentForm() {
+export function validatePaymentForm() {
 
     // Gather data
     const paymentDetails = new PaymentDetails();

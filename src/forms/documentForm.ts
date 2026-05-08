@@ -88,7 +88,7 @@ container.innerHTML = `
     <pre id="${documentFormId}-out">Validation not yet run</pre>
 `;
 
-function validateDocumentDetails() {
+export function validateDocumentDetails() {
 
     function getDocumentDetails(id: string) {
         // Original Document

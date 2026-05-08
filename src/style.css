@@ -43,9 +43,8 @@
     height: 80px;
 }
 
-.form-card button {
+button {
     margin-top: 20px;
-    width: 100%;
     padding: 10px;
     border: none;
     border-radius: 8px;
@@ -55,8 +54,22 @@
     cursor: pointer;
 }
 
-.form-card button:hover {
+button:hover {
     background: #4c6ef5;
+}
+
+.form-card button {
+    width: 100%;
+}
+
+.validate-all-button {
+    display: flex;
+    justify-content: center;
+    margin: 1rem 0;
+}
+
+.validate-all-button button {
+    font-size: 2rem;
 }
 
 .form-card pre {

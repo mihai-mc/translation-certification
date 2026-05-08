@@ -1,4 +1,4 @@
-export function safeSet<T>(func: () => void, errors: string[]) {
+export function safeSet(func: () => void, errors: string[]) {
     try {
         func();
     }
