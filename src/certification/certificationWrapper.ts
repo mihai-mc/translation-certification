@@ -2,6 +2,10 @@ import { validateTranslator } from "@/forms/translatorForm";
 import { validateDocumentDetails } from "@/forms/documentForm";
 import { validatePaymentForm } from "@/forms/paymentForm";
 
+import { Certification } from "@/certification/certification";
+
+import { saveAs } from "file-saver";
+
 const certificationId: string = "certification";
 
 const container = document.getElementById(certificationId)!;
@@ -17,7 +21,13 @@ function validateAll() {
 }
 document.getElementById(`${certificationId}-validation`)!.addEventListener("click", validateAll);
 
-function generateCertification() {
-    alert("Not yet implemented");
+async function generateCertification() {
+    const certification = new Certification();
+    certification.translator_details = validateTranslator();
+    certification.document_details = validateDocumentDetails();
+    certification.payment_details = validatePaymentForm();
+
+    const blob = await certification.getCertification();
+    saveAs(blob, "certification.docx");
 }
 document.getElementById(`${certificationId}-generate`)!.addEventListener("click", generateCertification);
