@@ -1,7 +1,7 @@
 import { MultiLingualText } from "@/models/translation";
 
 
-const payment_methods = Object.freeze({
+export const payment_methods = Object.freeze({
     SLIP: Object.freeze(new MultiLingualText("chitanță", "slip")),
     RECEIPT: Object.freeze(new MultiLingualText("bon fiscal", "receipt")),
     PAYMENT_ORDER: Object.freeze(new MultiLingualText("ordin de plată", "payment order"))
