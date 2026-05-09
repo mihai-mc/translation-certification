@@ -146,38 +146,63 @@ export class Certification {
     }
 
     private certification_in_en(): Paragraph[] {
-        const paragraph_1: string = 
-            `I, the undersigned, **${this.translator_details.name}**, a certified translator and interpreter for 
-            **${this.translator_details.authorisation_languages.map(x => x.EN).join(", ")}**, pursuant to Authorisation 
-            No. **${this.translator_details.authorisation_no}** issued by the Romanian Ministry of Justice on 
-            **${date_to_string(this.translator_details.translator_auth_date)}**, hereby certify the accuracy of this translation from 
-            **${this.document_details.document_language.EN}** into ${this.document_details.translation_language.EN}, 
-            that the entire text was translated, without omissions, and that the content and the meaning of the document
-            were not altered through translation.`;
 
-        const paragraph_2: string = 
-            `The document for which the translation is required in **${this.document_details.translation_language.EN}** 
-            has, in its entirerity, a total of **${this.document_details.number_of_pages}** 
-            ${this.document_details.page_suffix.EN}, bears the **${this.document_details.document_heading.EN}** of 
-            **\"${this.document_details.document_name.EN}\"**, was issued by 
-            **\"${this.document_details.issuing_authority.EN}\"** and was presented to me in 
-            **${this.document_details.text_seen_in.EN}**.`;
+        const paragraph_1: Paragraph = new_paragraph([
+            normal(`I, the undersigned, `),
+            bold(`${this.translator_details.name}`),
+            normal(`, a certified translator and interpreter for `),
+            bold(`${this.translator_details.authorisation_languages.map(x => x.EN).join(", ")}`),
+            normal(`, pursuant to Authorisation No. `),
+            bold(`${this.translator_details.authorisation_no}`),
+            normal(` issued by the Romanian Ministry of Justice on `),
+            bold(`${date_to_string(this.translator_details.translator_auth_date)}`),
+            normal(`, hereby certify the accuracy of this translation from `),
+            bold(`${this.document_details.document_language.EN}`),
+            normal(` into `),
+            bold(`${this.document_details.translation_language.EN}`),
+            normal(`, that the entire text was translated, without omissions, and that the content and the meaning of the document were not altered through translation.`)
+        ]);
 
-        const paragraph_3: string = 
-            `The translation of the document has a total of **${this.document_details.translated_number_of_pages}** 
-            ${this.document_details.translated_page_suffix.EN} and was carried out according to the written request 
-            registered nuder no. **${this.payment_details.translation_request_id}\/${date_to_string(this.payment_details.translation_request_date)}**, 
-            which are kept in the undersigned's archive.`;
+        const paragraph_2: Paragraph = new_paragraph([
+            normal(`The document for which the translation is required in `),
+            bold(`${this.document_details.translation_language.EN}`),
+            normal(` has, in its entirerity, a total of `),
+            bold(`${this.document_details.number_of_pages}`),
+            normal(` ${this.document_details.page_suffix.EN}, bears the `),
+            bold(`${this.document_details.document_heading.EN}`),
+            normal(` of `),
+            bold(`\"${this.document_details.document_name.EN}\"`),
+            normal(`, was issued by `),
+            bold(`\"${this.document_details.issuing_authority.EN}\"`),
+            normal(` and was presented to me in `),
+            bold(`${this.document_details.text_seen_in.EN}`),
+            normal(`.`)
+        ]);
 
-        const paragraph_4: string = 
-            `Translation fees: **${(this.payment_details.payment_amount_in_cents / 100).toFixed(2)}** RON, with 
-            **${this.payment_details.payment_method.EN}** no. 
-            **${this.payment_details.payment_id}\/${this.payment_details.payment_date}**.`;
+        const paragraph_3: Paragraph = new_paragraph([
+            normal(`The translation of the document has a total of `),
+            bold(`${this.document_details.translated_number_of_pages}`),
+            normal(` ${this.document_details.translated_page_suffix.EN} and was carried out according to the written request registered nuder no. `),
+            bold(`${this.payment_details.translation_request_id}\/${date_to_string(this.payment_details.translation_request_date)}`),
+            normal(`, which are kept in the undersigned's archive.`)
+        ]);
+        
+        const paragraph_4: Paragraph = new_paragraph([
+            normal(`Translation fees: `),
+            bold(`${(this.payment_details.payment_amount_in_cents / 100).toFixed(2)}`),
+            normal(` RON, with `),
+            bold(`${this.payment_details.payment_method.EN}`),
+            normal(` no. `),
+            bold(`${this.payment_details.payment_id}\/${date_to_string(this.payment_details.payment_date)}`),
+            normal(`.`)
+        ]);
 
-        const last_paragraph: string = 
-            `**CERTIFIED TRANSLATOR AND INTERPRETER,\n${this.translator_details.name}\n(Stamp and signature)**`;
+        const last_paragraphs: Paragraph[] = [
+            centredParagraph([bold(`CERTIFIED TRANSLATOR AND INTERPRETER,`)]),
+            centredParagraph([bold(`${this.translator_details.name}`)]),
+            centredParagraph([bold(`(stamp and signature)`)])
+        ];
 
-        // return [paragraph_1, paragraph_2, paragraph_3, paragraph_4, last_paragraph];
-        throw new Error("Not implemented");
+        return [paragraph_1, ...new_line(), paragraph_2, ...new_line(), paragraph_3,  ...new_line(), paragraph_4, ...new_line(), ...last_paragraphs];
     }
 }
