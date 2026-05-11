@@ -28,6 +28,6 @@ async function generateCertification() {
     certification.payment_details = validatePaymentForm();
 
     const blob = await certification.getCertification();
-    saveAs(blob, "certification.docx");
+    saveAs(blob, "Încheiere de traducător.docx");
 }
 document.getElementById(`${certificationId}-generate`)!.addEventListener("click", generateCertification);
