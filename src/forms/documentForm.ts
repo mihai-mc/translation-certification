@@ -1,5 +1,5 @@
 import { DocumentDetails, text_part, document_heading } from "@/models/document_details";
-import { languages, MultiLingualText } from "@/models/translation";
+import { languages, DualLingualText, type Language } from "@/models/translation";
 import { safeSet } from "@/forms/common";
 
 const documentFormId: string = "document-form";
@@ -109,12 +109,11 @@ export function validateDocumentDetails() {
         };
     }
 
-    // FIXME: Currently assumes an order between RO and EN, which is very very bad!
-    function constructMultiLingualText(id: string): MultiLingualText {
+    function constructDualLingualText(id: string, original_language: Language, translated_language: Language): DualLingualText {
         const document_title = (document.getElementById(`${documentFormId}-document-${id}`) as HTMLInputElement).value;
         const translation_title = (document.getElementById(`${documentFormId}-translation-${id}`) as HTMLInputElement).value;
 
-        return new MultiLingualText(translation_title, document_title, "[FIXME]");
+        return new DualLingualText([original_language, document_title], [translated_language, translation_title]);
     }
 
     // Gather data
@@ -127,8 +126,8 @@ export function validateDocumentDetails() {
     const heading_html = (document.getElementById(`${documentFormId}-document-heading`) as HTMLSelectElement).value;
     const heading = document_heading[heading_html as keyof typeof document_heading];
 
-    const document_name = constructMultiLingualText("name");
-    const issuing_authority = constructMultiLingualText("issuing_authority");
+    const document_name = constructDualLingualText("name", original_document_details.language, translation_details.language);
+    const issuing_authority = constructDualLingualText("issuing_authority", original_document_details.language, translation_details.language);
 
      // Catch errors to alert the user
     const errors: string[] = [];

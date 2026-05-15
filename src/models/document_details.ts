@@ -1,4 +1,4 @@
-import { MultiLingualText, languages } from "@/models/translation";
+import { MultiLingualText, DualLingualText, languages } from "@/models/translation";
 import type { Language } from "@/models/translation";
 
 
@@ -32,8 +32,8 @@ export class DocumentDetails {
     private _translation_requested_in: TextPart;
     private _document_heading: DocumentHeading;
 
-    private _document_name: MultiLingualText;
-    private _issuing_authority: MultiLingualText;
+    private _document_name: DualLingualText;
+    private _issuing_authority: DualLingualText;
 
     private _document_language: Language;
     private _translation_language: Language;
@@ -44,8 +44,8 @@ export class DocumentDetails {
         this._text_seen_in = text_part.FULL;
         this._translation_requested_in = text_part.FULL;
         this._document_heading = document_heading.NAME;
-        this._document_name = new MultiLingualText("Document neintitulat", "Untitled document", "Document sans titre");
-        this._issuing_authority = new MultiLingualText("Autoritate emitentă", "Issuing Authority", "Autorité émettrice");
+        this._document_name = new DualLingualText([languages.ENGLISH, "Untitled document"], [languages.ROMANIAN, "Document neintitulat"]);
+        this._issuing_authority = new DualLingualText([languages.ENGLISH, "Issuing Authority"], [languages.ROMANIAN, "Autoritate emitentă"]);
         this._document_language = languages.ROMANIAN;
         this._translation_language = languages.ENGLISH;
     }
@@ -130,19 +130,19 @@ export class DocumentDetails {
         return this._document_heading;
     }
 
-    public set document_name(name: MultiLingualText) {
+    public set document_name(name: DualLingualText) {
         this._document_name = name;
     }
 
-    public get document_name(): MultiLingualText {
+    public get document_name(): DualLingualText {
         return this._document_name;
     }
 
-    public set issuing_authority(authority: MultiLingualText) {
+    public set issuing_authority(authority: DualLingualText) {
         this._issuing_authority = authority;
     }
 
-    public get issuing_authority(): MultiLingualText {
+    public get issuing_authority(): DualLingualText {
         return this._issuing_authority;
     }
 
