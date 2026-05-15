@@ -2,9 +2,9 @@ import { MultiLingualText } from "@/models/translation";
 
 
 export const payment_methods = Object.freeze({
-    SLIP: Object.freeze(new MultiLingualText("chitanță", "slip")),
-    RECEIPT: Object.freeze(new MultiLingualText("bon fiscal", "receipt")),
-    PAYMENT_ORDER: Object.freeze(new MultiLingualText("ordin de plată", "payment order"))
+    SLIP: Object.freeze(new MultiLingualText("chitanță", "slip", "au reçu")),
+    RECEIPT: Object.freeze(new MultiLingualText("bon fiscal", "receipt", "au justificatif fiscal")),
+    PAYMENT_ORDER: Object.freeze(new MultiLingualText("ordin de plată", "payment order", "à l'ordre de virement"))
 });
 
 type PaymentMethod = typeof payment_methods[keyof typeof payment_methods];

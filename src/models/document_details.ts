@@ -3,22 +3,22 @@ import type { Language } from "@/models/translation";
 
 
 const page_suffix = Object.freeze({
-    SINGULAR: Object.freeze(new MultiLingualText("pagină", "page")),
-    PLURAL: Object.freeze(new MultiLingualText("pagini", "pages")),
+    SINGULAR: Object.freeze(new MultiLingualText("pagină", "page", "page")),
+    PLURAL: Object.freeze(new MultiLingualText("pagini", "pages", "pages")),
 });
 
 type PageSuffix = typeof page_suffix[keyof typeof page_suffix];
 
 export const text_part = Object.freeze({
-    FULL: Object.freeze(new MultiLingualText("întregime", "full")),
-    EXCERPT: Object.freeze(new MultiLingualText("extras", "excerpt")),
+    FULL: Object.freeze(new MultiLingualText("întregime", "full", "entièrement")),
+    EXCERPT: Object.freeze(new MultiLingualText("extras", "excerpt", "en extrait")),
 });
 
 type TextPart = typeof text_part[keyof typeof text_part];
 
 export const document_heading = Object.freeze({
-    NAME: Object.freeze(new MultiLingualText("denumirea", "name")),
-    TITLE: Object.freeze(new MultiLingualText("titlul", "title")),
+    NAME: Object.freeze(new MultiLingualText("denumirea", "name", "la dénomination")),
+    TITLE: Object.freeze(new MultiLingualText("titlul", "title", "le titre")),
 });
 
 type DocumentHeading = typeof document_heading[keyof typeof document_heading];
@@ -44,8 +44,8 @@ export class DocumentDetails {
         this._text_seen_in = text_part.FULL;
         this._translation_requested_in = text_part.FULL;
         this._document_heading = document_heading.NAME;
-        this._document_name = new MultiLingualText("Document neintitulat", "Untitled document");
-        this._issuing_authority = new MultiLingualText("Autoritate emitentă", "Issuing Authority");
+        this._document_name = new MultiLingualText("Document neintitulat", "Untitled document", "Document sans titre");
+        this._issuing_authority = new MultiLingualText("Autoritate emitentă", "Issuing Authority", "Autorité émettrice");
         this._document_language = languages.ROMANIAN;
         this._translation_language = languages.ENGLISH;
     }

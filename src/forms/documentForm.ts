@@ -19,6 +19,7 @@ container.innerHTML = `
             <label for="${documentFormId}-document-language">Language</label>
             <select id="${documentFormId}-document-language">
                 <option value="ENGLISH" selected>${languages.ENGLISH.EN}</option>
+                <option value="FRENCH">${languages.FRENCH.EN}</option>
                 <option value="ROMANIAN">${languages.ROMANIAN.EN}</option>
             </select>
             
@@ -38,6 +39,7 @@ container.innerHTML = `
             <label for="${documentFormId}-translation-language">Language</label>
             <select id="${documentFormId}-translation-language">
                 <option value="ENGLISH">${languages.ENGLISH.EN}</option>
+                <option value="FRENCH">${languages.FRENCH.EN}</option>
                 <option value="ROMANIAN" selected>${languages.ROMANIAN.EN}</option>
             </select>
             
@@ -112,7 +114,7 @@ export function validateDocumentDetails() {
         const document_title = (document.getElementById(`${documentFormId}-document-${id}`) as HTMLInputElement).value;
         const translation_title = (document.getElementById(`${documentFormId}-translation-${id}`) as HTMLInputElement).value;
 
-        return new MultiLingualText(translation_title, document_title);
+        return new MultiLingualText(translation_title, document_title, "[FIXME]");
     }
 
     // Gather data

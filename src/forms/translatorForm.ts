@@ -29,6 +29,7 @@ container.innerHTML = `
     <label for="${translatorFormId}-auth_languages">Authorised Languages</label>
     <select id="${translatorFormId}-auth_languages" multiple>
         <option value="ENGLISH" selected>${languages.ENGLISH.EN}</option>
+        <option value="FRENCH">${languages.FRENCH.EN}</option>
         <!-- <option value="ROMANIAN">${languages.ROMANIAN.EN}</option> -->
     </select>
 

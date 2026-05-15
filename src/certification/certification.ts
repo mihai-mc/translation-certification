@@ -2,8 +2,10 @@ import { TranslatorDetails, genders } from "@/models/translator_details";
 import { DocumentDetails } from "@/models/document_details";
 import { PaymentDetails } from "@/models/payment_details";
 
-import { Document, Paragraph, TextRun, AlignmentType, Packer } from "docx";
 import { languages } from "@/models/translation";
+import type { Language } from "@/models/translation";
+
+import { Document, Paragraph, TextRun, AlignmentType, Packer } from "docx";
 
 function date_to_string(date: Date): string {
 
@@ -59,18 +61,27 @@ export class Certification {
         this.payment_details = new PaymentDetails();
     }
 
+    private certification_text(lang: Language): Paragraph[] {
+        switch (lang) {
+            case languages.ROMANIAN: return this.certification_in_ro();
+            case languages.ENGLISH: return this.certification_in_en();
+            case languages.FRENCH: return this.certification_in_fr();
+            default: throw new Error(`There is no certification text for ${lang.EN} !`);
+        }
+    }
+
     public async getCertification(): Promise<Blob> {
-        const paragraphs: Paragraph[] = this.certification_in_ro();
+        const paragraphs: Paragraph[] = this.certification_text(languages.ROMANIAN);
 
         // NOTE: Only add second certification if the translation is done from RO to a foreign language
-        if (this.document_details.translation_language != languages.ROMANIAN) {
-            // Some spacing
+        const translation_lang = this.document_details.translation_language;
+        if (translation_lang != languages.ROMANIAN) {
+            // Add spacing
             const num_spaces: number = 12;
-            
-            const additional_paragraphs = this.certification_in_en();
-
-            // Append
             paragraphs.push(...new_line(num_spaces));
+            
+            // Certification in the foreign language
+            const additional_paragraphs = this.certification_text(translation_lang);
             paragraphs.push(...additional_paragraphs);
         }
 
@@ -81,7 +92,7 @@ export class Certification {
 
     private certification_in_ro(): Paragraph[] {
 
-        // NOTE: These only happen in Romanian, so I'm not going to handle it via `MultiLingualText` for now
+        // NOTE: These only happen in Romanian and French, so I'm not going to handle it via `MultiLingualText` for now
         const language_suffix: string = this.translator_details.authorisation_languages.length == 1 ? "limba" : "limbile";
         const undersigned_N: string = this.translator_details.gender == genders.MALE ? "Subsemnatul" : "Subsemnata";
         const undersigned_G: string = this.translator_details.gender == genders.MALE ? "subsemnatului" : "subsemnatei";
@@ -204,5 +215,71 @@ export class Certification {
         ];
 
         return [paragraph_1, ...new_line(), paragraph_2, ...new_line(), paragraph_3,  ...new_line(), paragraph_4, ...new_line(), ...last_paragraphs];
+    }
+
+    private certification_in_fr(): Paragraph[] {
+
+        // NOTE: These only happen in Romanian and French, so I'm not going to handle it via `MultiLingualText` for now
+        const undersigned_N: string = this.translator_details.gender == genders.MALE ? "Le soussigné" : "La sousignée";
+        const undersigned_G: string = this.translator_details.gender == genders.MALE ? "du soussigné" : "de la sousignée";
+        const language_suffix: string = this.translator_details.authorisation_languages.length == 1 ? "la langue" : "les langues";
+
+        const paragraph_1: Paragraph = new_paragraph([
+            normal(`\t${undersigned_N}, `),
+            bold(`${this.translator_details.name}`),
+            normal(` interprète et traducteur assermenté pour ${language_suffix} `),
+            bold(`${this.translator_details.authorisation_languages.map(x => x.FR).join(", ")}`),
+            normal(`, en vertu de l'authorisation nº `),
+            bold(`${this.translator_details.authorisation_no}`),
+            normal(` du `),
+            bold(`${date_to_string(this.translator_details.translator_auth_date)}`),
+            normal(`, delivrée par le Ministère de la Joustice de Roumanie, certifie l'exactitude de la traduction realisée du `),
+            bold(`${this.document_details.document_language.FR}`),
+            normal(` en `),
+            bold(`${this.document_details.translation_language.FR}`),
+            normal(`, que le texte presenté a été complètement traduit, sans omissions et que par le processus de traduction son contenu et le sens du document n'ont pas été altérés.`)
+        ]);
+
+        const paragraph_2: Paragraph = new_paragraph([
+            normal(`\tLe document dont la traduction est demandée `),
+            bold(`${this.document_details.translation_requested_in.FR}`),
+            normal(` comporte, dans son intégralité, un nombre de `),
+            bold(`${this.document_details.number_of_pages}`),
+            normal(` ${this.document_details.page_suffix.FR}, porte `),
+            bold(`${this.document_details.document_heading.FR}`),
+            normal(` de `),
+            bold(`« ${this.document_details.document_name.FR} »`),
+            normal(`, a été délivré par `),
+            bold(`« ${this.document_details.issuing_authority.FR} »`),
+            normal(` et m'a été presenté `),
+            bold(`${this.document_details.text_seen_in.FR}`),
+            normal(`.`)
+        ]);
+
+        const paragraph_3: Paragraph = new_paragraph([
+            normal(`\tLa traduction de ce document a un nombre de `),
+            bold(`${this.document_details.translated_number_of_pages}`),
+            normal(` ${this.document_details.translated_page_suffix.FR} et a été realisée conformément à la demande écrite enregistrée sous le nº `),
+            bold(`${this.payment_details.translation_request_id}\/${date_to_string(this.payment_details.translation_request_date)}`),
+            normal(`, gardée dans l'archive ${undersigned_G}.`)
+        ]);
+
+        const paragraph_4: Paragraph = new_paragraph([
+            normal(`\tFrais de traduction: `),
+            bold(`${(this.payment_details.payment_amount_in_cents / 100).toFixed(2)}`),
+            normal(` RON, conformément `),
+            bold(`${this.payment_details.payment_method.FR}`),
+            normal(` nº `),
+            bold(`${this.payment_details.payment_id}\/${date_to_string(this.payment_details.payment_date)}`),
+            normal(`.`)
+        ]);
+
+        const last_paragraphs: Paragraph[] = [
+            centredParagraph([bold(`INTERPRÈTE ET TRADUCTEUR ASSERMENTÉ,`)]),
+            centredParagraph([bold(`${this.translator_details.name}`)]),
+            centredParagraph([bold(`(signature, tampon)`)])
+        ];
+
+        return [paragraph_1, paragraph_2, paragraph_3, paragraph_4, ...new_line(), ...last_paragraphs];
     }
 }

@@ -21,6 +21,7 @@ function validateAll() {
 }
 document.getElementById(`${certificationId}-validation`)!.addEventListener("click", validateAll);
 
+// FIXME: Found a bug - the certification is still being generated, even though the validation failed !
 async function generateCertification() {
     const certification = new Certification();
     certification.translator_details = validateTranslator();
