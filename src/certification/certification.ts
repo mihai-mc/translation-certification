@@ -70,6 +70,15 @@ export class Certification {
         }
     }
 
+    private legalisation_text(lang: Language): Paragraph[] {
+                switch (lang) {
+            case languages.ROMANIAN: return this.legalisation_in_ro();
+            case languages.ENGLISH: return this.legalisation_in_en();
+            case languages.FRENCH: return this.legalisation_in_fr();
+            default: throw new Error(`There is no legalisation text for ${lang.EN} !`);
+        }
+    }
+
     public async getCertification(): Promise<Blob> {
         const paragraphs: Paragraph[] = this.certification_text(languages.ROMANIAN);
 
@@ -301,7 +310,7 @@ export class Certification {
         ];
 
         const paragraph_1: Paragraph = new_paragraph([
-            normal(`\t...................................., notar public, în temeiul art. 12 lit. j) din Legea Notarilor publici și a activităților notariale nr. 36/1995, republicată, cu modificările ulterioare, legalizez semnătura de mai sus, apaținând lui `),
+            normal(`\t...................................., notar public, în temeiul art. 12 lit. j) din Legea Notarilor publici și a activității notariale nr. 36/1995, republicată, cu modificările ulterioare, legalizez semnătura de mai sus, apaținând lui `),
             bold(`${this.translator_details.name}`),
             normal(`, interpret și traducător autorizat în baza .................................................., de pe cele ...... exemplare ale înscrisului, care are ca parte integrantă o copie a actului tradus.`)
         ]);
@@ -340,7 +349,7 @@ export class Certification {
         ];
 
         const paragraph_1: Paragraph = new_paragraph([
-            normal(`I, the undersigned, ...................................., notary public, pursuant to Art. 12 letter j) of Law no. 36/1995 of the Public Notaries and Notarial Activities, republished, with its subsequent changes and alterations, hereby legalise the above signature, belonging to `),
+            normal(`I, the undersigned, ...................................., notary public, pursuant to Art. 12 letter j) of Law no. 36/1995 of the Public Notaries and Notarial Activity, republished, with its subsequent changes and alterations, hereby legalise the above signature, belonging to `),
             bold(`${this.translator_details.name}`),
             normal(`, certified translator and interpreter according to .................................................., on the ...... copies of the document, that includes a copy of the document that was translated as an integral part.`)
         ]);
@@ -363,7 +372,42 @@ export class Certification {
     }
 
     private legalisation_in_fr(): Paragraph[] {
-        // FIXME: Not implemented
-        throw new Error("Not implemented");
+
+        const opening_paragraphs = [
+            new_paragraph([bold(`ROUMANIE`)]),
+            new_paragraph([bold(`L'Union nationale des Notaires Publics`)]),
+            new_paragraph([normal(`Bureau de Notaire ....................................`)]),
+            new_paragraph([normal(`Authorisation de fonctionnement nº ........`)]),
+            new_paragraph([normal(`Siège ........................................................`)]),
+        ];
+
+        const title: Paragraph[] = [
+            ...new_line(),
+            centredParagraph([bold(`LEGALISATION DE LA SIGNATURE DU TRADUCTEUR Nº. .....`)]),
+            centredParagraph([normal(`Année ............ mois ............ jour ............`)]),
+            ...new_line()
+        ];
+
+        const paragraph_1: Paragraph = new_paragraph([
+            normal(`\t...................................., Notaire Public, en vertu de l'art. 12 let. j) de la Loi des Notaires Publics et de l'activité notariale nº 36/1995, republiée, avec ses modifications ultériueres, légalise la signature au-dessus appartenant à `),
+            bold(`${this.translator_details.name}`),
+            normal(`, interprète et traducteur assermenté sur la base du .................................................., sur le(s) ...... copie(s) du document, qui a en tant que partie intégrante une copie de l'acte traduit.`)
+        ]);
+
+        const paragraph_2: Paragraph = new_paragraph([
+            normal(`\tLe document dont la traduction est demandé est un document ........................ .`)
+        ]);
+
+        const paragraph_3: Paragraph = new_paragraph([
+            normal(`\tFrais notarielles: ............ RON, avec reçu/justificatif fiscale/ordre de virement nº ............ .`)
+        ]);
+
+        const last_paragraphs: Paragraph[] = [
+            centredParagraph([bold(`Notaire Public,`)]),
+            centredParagraph([normal(`........................`)]),
+            centredParagraph([normal(`L.S.`)])
+        ];
+
+        return [...opening_paragraphs, ...title, paragraph_1, paragraph_2, paragraph_3, ...new_line(), ...last_paragraphs];
     }
 }
