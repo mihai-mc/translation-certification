@@ -129,22 +129,22 @@ export function validateDocumentDetails() {
     const document_name = constructDualLingualText("name", original_document_details.language, translation_details.language);
     const issuing_authority = constructDualLingualText("issuing_authority", original_document_details.language, translation_details.language);
 
-     // Catch errors to alert the user
+    // Catch errors to alert the user
     const errors: string[] = [];
-    safeSet(() => {documentDetails.number_of_pages = original_document_details.number_of_pages}, errors);
-    safeSet(() => {documentDetails.document_language = original_document_details.language}, errors);
-    safeSet(() => {documentDetails.text_seen_in = original_document_details.text_part}, errors);
-    safeSet(() => {documentDetails.translated_number_of_pages = translation_details.number_of_pages}, errors);
-    safeSet(() => {documentDetails.translation_language = translation_details.language}, errors);
-    safeSet(() => {documentDetails.translation_requested_in = translation_details.text_part}, errors);
-    safeSet(() => {documentDetails.document_heading = heading}, errors);
-    safeSet(() => {documentDetails.document_name = document_name}, errors);
-    safeSet(() => {documentDetails.issuing_authority = issuing_authority}, errors);
+    safeSet(() => { documentDetails.number_of_pages = original_document_details.number_of_pages }, errors);
+    safeSet(() => { documentDetails.document_language = original_document_details.language }, errors);
+    safeSet(() => { documentDetails.text_seen_in = original_document_details.text_part }, errors);
+    safeSet(() => { documentDetails.translated_number_of_pages = translation_details.number_of_pages }, errors);
+    safeSet(() => { documentDetails.translation_language = translation_details.language }, errors);
+    safeSet(() => { documentDetails.translation_requested_in = translation_details.text_part }, errors);
+    safeSet(() => { documentDetails.document_heading = heading }, errors);
+    safeSet(() => { documentDetails.document_name = document_name }, errors);
+    safeSet(() => { documentDetails.issuing_authority = issuing_authority }, errors);
 
     // Object validation
-    safeSet(() => {documentDetails.validateDocumentAndTranslationLanguages()}, errors);
+    safeSet(() => { documentDetails.validateDocumentAndTranslationLanguages() }, errors);
 
-    if(import.meta.env.DEV)
+    if (import.meta.env.DEV)
         console.log(documentDetails);
 
     const pre_out = document.getElementById(`${documentFormId}-out`)!;

@@ -47,7 +47,7 @@ export function validateTranslator() {
     const name = (document.getElementById(`${translatorFormId}-name`) as HTMLInputElement).value;
     const auth_no = (document.getElementById(`${translatorFormId}-auth_no`) as HTMLInputElement).value;
     const auth_date = new Date((document.getElementById(`${translatorFormId}-auth_date`) as HTMLInputElement).value);
-    
+
     const gender_html = (document.getElementById(`${translatorFormId}-gender`) as HTMLSelectElement).value;
     const gender = genders[gender_html as keyof typeof genders];
 
@@ -56,13 +56,13 @@ export function validateTranslator() {
 
     // Catch errors to alert the user
     const errors: string[] = [];
-    safeSet(() => {translatorDetails.name = name}, errors);
-    safeSet(() => {translatorDetails.gender = gender}, errors);
-    safeSet(() => {translatorDetails.authorisation_no = auth_no}, errors);
-    safeSet(() => {translatorDetails.authorisation_date = auth_date}, errors);
-    safeSet(() => {translatorDetails.authorisation_languages = langs}, errors);
+    safeSet(() => { translatorDetails.name = name }, errors);
+    safeSet(() => { translatorDetails.gender = gender }, errors);
+    safeSet(() => { translatorDetails.authorisation_no = auth_no }, errors);
+    safeSet(() => { translatorDetails.authorisation_date = auth_date }, errors);
+    safeSet(() => { translatorDetails.authorisation_languages = langs }, errors);
 
-    if(import.meta.env.DEV)
+    if (import.meta.env.DEV)
         console.log(translatorDetails);
 
     const pre_out = document.getElementById(`${translatorFormId}-out`)!;

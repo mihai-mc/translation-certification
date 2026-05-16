@@ -57,7 +57,7 @@ export function validatePaymentForm() {
     const translation_request_date = new Date((document.getElementById(`${paymentFormId}-translation-date`) as HTMLInputElement).value);
     const payment_id = (document.getElementById(`${paymentFormId}-payment-id`) as HTMLInputElement).value;
     const payment_date = new Date((document.getElementById(`${paymentFormId}-payment-date`) as HTMLInputElement).value);
-    
+
     const payment_amount_in_cents = Math.round(Number((document.getElementById(`${paymentFormId}-payment-amount`) as HTMLInputElement).value) * 100);
 
     const payment_method_html = (document.getElementById(`${paymentFormId}-payment-method`) as HTMLSelectElement).value;
@@ -65,14 +65,14 @@ export function validatePaymentForm() {
 
     // Catch errors to alert the user
     const errors: string[] = [];
-    safeSet(() => {paymentDetails.translation_request_id = translation_request_id}, errors);
-    safeSet(() => {paymentDetails.translation_request_date = translation_request_date}, errors);
-    safeSet(() => {paymentDetails.payment_id = payment_id}, errors);
-    safeSet(() => {paymentDetails.payment_date = payment_date}, errors);
-    safeSet(() => {paymentDetails.payment_method = payment_method}, errors);
-    safeSet(() => {paymentDetails.payment_amount_in_cents = payment_amount_in_cents}, errors);
+    safeSet(() => { paymentDetails.translation_request_id = translation_request_id }, errors);
+    safeSet(() => { paymentDetails.translation_request_date = translation_request_date }, errors);
+    safeSet(() => { paymentDetails.payment_id = payment_id }, errors);
+    safeSet(() => { paymentDetails.payment_date = payment_date }, errors);
+    safeSet(() => { paymentDetails.payment_method = payment_method }, errors);
+    safeSet(() => { paymentDetails.payment_amount_in_cents = payment_amount_in_cents }, errors);
 
-    if(import.meta.env.DEV)
+    if (import.meta.env.DEV)
         console.log(paymentDetails);
 
     const pre_out = document.getElementById(`${paymentFormId}-out`)!;

@@ -46,7 +46,7 @@ function centredParagraph(_paragraphs: TextRun[]): Paragraph {
 }
 
 function new_line(num_spaces: number = 1): Paragraph[] {
-    return Array.from({length: num_spaces}, () => new_paragraph());
+    return Array.from({ length: num_spaces }, () => new_paragraph());
 }
 
 export class Certification {
@@ -79,13 +79,13 @@ export class Certification {
             // Add spacing
             const num_spaces: number = 12;
             paragraphs.push(...new_line(num_spaces));
-            
+
             // Certification in the foreign language
             const additional_paragraphs = this.certification_text(translation_lang);
             paragraphs.push(...additional_paragraphs);
         }
 
-        const certification_document = new Document({sections: [{children: paragraphs}]});
+        const certification_document = new Document({ sections: [{ children: paragraphs }] });
 
         return await Packer.toBlob(certification_document);
     }
@@ -100,7 +100,7 @@ export class Certification {
         const paragraph_1: Paragraph = new_paragraph([
             normal(`\t${undersigned_N}, `),
             bold(`${this.translator_details.name}`),
-            normal(`, interpret și traducător autorizat pentru ${language_suffix} `), 
+            normal(`, interpret și traducător autorizat pentru ${language_suffix} `),
             bold(`${this.translator_details.authorisation_languages.map(x => x.RO).join(", ")}`),
             normal(`, în temeiul Autorizației nr. `),
             bold(`${this.translator_details.authorisation_no}`),
@@ -197,7 +197,7 @@ export class Certification {
             bold(`${this.payment_details.translation_request_id}\/${date_to_string(this.payment_details.translation_request_date)}`),
             normal(`, which are kept in the undersigned's archive.`)
         ]);
-        
+
         const paragraph_4: Paragraph = new_paragraph([
             normal(`Translation fees: `),
             bold(`${(this.payment_details.payment_amount_in_cents / 100).toFixed(2)}`),
@@ -214,7 +214,7 @@ export class Certification {
             centredParagraph([bold(`(stamp and signature)`)])
         ];
 
-        return [paragraph_1, ...new_line(), paragraph_2, ...new_line(), paragraph_3,  ...new_line(), paragraph_4, ...new_line(), ...last_paragraphs];
+        return [paragraph_1, ...new_line(), paragraph_2, ...new_line(), paragraph_3, ...new_line(), paragraph_4, ...new_line(), ...last_paragraphs];
     }
 
     private certification_in_fr(): Paragraph[] {
