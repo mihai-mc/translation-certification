@@ -282,4 +282,88 @@ export class Certification {
 
         return [paragraph_1, paragraph_2, paragraph_3, paragraph_4, ...new_line(), ...last_paragraphs];
     }
+
+    private legalisation_in_ro(): Paragraph[] {
+
+        const opening_paragraphs = [
+            new_paragraph([bold(`ROMÂNIA`)]),
+            new_paragraph([bold(`Uniunea Națională a Notarilor Publici`)]),
+            new_paragraph([normal(`Birou Notarial .........................................`)]),
+            new_paragraph([normal(`Licența de funcționare nr. .......................`)]),
+            new_paragraph([normal(`Sediul ......................................................`)]),
+        ];
+
+        const title: Paragraph[] = [
+            ...new_line(),
+            centredParagraph([bold(`ÎNCHEIERE DE LEGALIZARE A SEMNĂTURII TRADUCĂTORULUI NR. .....`)]),
+            centredParagraph([normal(`Anul ............ luna ............ ziua ............`)]),
+            ...new_line()
+        ];
+
+        const paragraph_1: Paragraph = new_paragraph([
+            normal(`\t...................................., notar public, în temeiul art. 12 lit. j) din Legea Notarilor publici și a activităților notariale nr. 36/1995, republicată, cu modificările ulterioare, legalizez semnătura de mai sus, apaținând lui `),
+            bold(`${this.translator_details.name}`),
+            normal(`, interpret și traducător autorizat în baza .................................................., de pe cele ...... exemplare ale înscrisului, care are ca parte integrantă o copie a actului tradus.`)
+        ]);
+
+        const paragraph_2: Paragraph = new_paragraph([
+            normal(`\tÎnscrisul a cărui traducere se solicită este un înscris ........................ .`)
+        ]);
+
+        const paragraph_3: Paragraph = new_paragraph([
+            normal(`\tS-a încasat onorariul de ............ lei, cu chitanță/bon fiscal/ordin de plată nr. ............ .`)
+        ]);
+
+        const last_paragraphs: Paragraph[] = [
+            centredParagraph([bold(`Notar public,`)]),
+            centredParagraph([normal(`........................`)]),
+            centredParagraph([normal(`L.S.`)])
+        ];
+
+        return [...opening_paragraphs, ...title, paragraph_1, paragraph_2, paragraph_3, ...new_line(), ...last_paragraphs];
+    }
+
+    private legalisation_in_en(): Paragraph[] {
+        const opening_paragraphs = [
+            new_paragraph([bold(`ROMANIA`)]),
+            new_paragraph([bold(`The National Union of Notaries Public`)]),
+            new_paragraph([normal(`Notary Office ...........................................`)]),
+            new_paragraph([normal(`Operating Licence no. ..............................`)]),
+            new_paragraph([normal(`Registered Address ...................................`)]),
+        ];
+
+        const title: Paragraph[] = [
+            ...new_line(),
+            centredParagraph([bold(`LEGALISATION OF THE TRANSLATOR'S SIGNATURE NO. .....`)]),
+            centredParagraph([normal(`Year ............ month ............ day ............`)]),
+            ...new_line()
+        ];
+
+        const paragraph_1: Paragraph = new_paragraph([
+            normal(`I, the undersigned, ...................................., notary public, pursuant to Art. 12 letter j) of Law no. 36/1995 of the Public Notaries and Notarial Activities, republished, with its subsequent changes and alterations, hereby legalise the above signature, belonging to `),
+            bold(`${this.translator_details.name}`),
+            normal(`, certified translator and interpreter according to .................................................., on the ...... copies of the document, that includes a copy of the document that was translated as an integral part.`)
+        ]);
+
+        const paragraph_2: Paragraph = new_paragraph([
+            normal(`The document for which translation is requested is a ........................ .`)
+        ]);
+
+        const paragraph_3: Paragraph = new_paragraph([
+            normal(`Notary fees: ............ RON, with slip/receipt/payment order no. ............ .`)
+        ]);
+
+        const last_paragraphs: Paragraph[] = [
+            centredParagraph([bold(`Notary Public,`)]),
+            centredParagraph([normal(`........................`)]),
+            centredParagraph([normal(`L.S.`)])
+        ];
+
+        return [...opening_paragraphs, ...title, paragraph_1, ...new_line(), paragraph_2, ...new_line(), paragraph_3, ...new_line(), ...last_paragraphs];
+    }
+
+    private legalisation_in_fr(): Paragraph[] {
+        // FIXME: Not implemented
+        throw new Error("Not implemented");
+    }
 }
