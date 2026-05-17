@@ -12,6 +12,10 @@ const container = document.getElementById(certificationId)!;
 container.innerHTML = `
     <button id="${certificationId}-validation">Validate all forms</button>
     <button id="${certificationId}-generate">Generate .docx</button>
+    <label class="checkbox">
+        <input type="checkbox" id="${certificationId}-legalisation">
+        Include Legalisation
+    </label>
 `;
 
 function validateAll() {
@@ -27,6 +31,10 @@ async function generateCertification() {
     certification.translator_details = validateTranslator();
     certification.document_details = validateDocumentDetails();
     certification.payment_details = validatePaymentForm();
+
+    // Get state of checkbox for whether or not to include the legalisation text
+    const add_legalisation_certification = (document.getElementById(`${certificationId}-legalisation`) as HTMLInputElement).checked;
+    certification.add_legalisation_certification = add_legalisation_certification;
 
     const blob = await certification.getCertification();
     saveAs(blob, "Încheiere de traducător.docx");
