@@ -1,7 +1,8 @@
 # About this Project
 
-![License](https://img.shields.io/github/license/mihai-mc/translation-certification);
 ![CI](https://github.com/mihai-mc/translation-certification/actions/workflows/deploy.yml/badge.svg)
+![License](https://img.shields.io/github/license/mihai-mc/translation-certification)
+
 ![Python Version](https://img.shields.io/badge/python-3.12-blue)
 ![TypeScript](https://img.shields.io/badge/typescript-6.x-3178C6?logo=typescript&logoColor=white)
 ![Vite](https://img.shields.io/badge/vite-8.x-646CFF?logo=vite&logoColor=white)
@@ -26,4 +27,4 @@ This feature auto-generates the Notary Public's legalisation certification that 
 
 # Contributing to this project
 
-If you spot any bugs or mis-translations or if you want to contribute to this project, please raise an Issue and/or a Pull Request.
+If you spot any bugs or mis-translations or if you want to contribute to this project, please raise an Issue or a Pull Request.
