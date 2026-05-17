@@ -84,18 +84,31 @@ export class Certification {
     }
 
     public async getCertification(): Promise<Blob> {
+        // Certification in RO
         const paragraphs: Paragraph[] = this.certification_text(languages.ROMANIAN);
+
+        // Number of spaces to add each time
+        const num_spaces: number = 10;
+        
+        if(this.add_legalisation_certification) {
+            // Legalisation text in RO
+            paragraphs.push(...new_line(num_spaces));
+            paragraphs.push(...this.legalisation_text(languages.ROMANIAN));
+        }
 
         // NOTE: Only add second certification if the translation is done from RO to a foreign language
         const translation_lang = this.document_details.translation_language;
         if (translation_lang != languages.ROMANIAN) {
-            // Add spacing
-            const num_spaces: number = 12;
-            paragraphs.push(...new_line(num_spaces));
 
             // Certification in the foreign language
-            const additional_paragraphs = this.certification_text(translation_lang);
-            paragraphs.push(...additional_paragraphs);
+            paragraphs.push(...new_line(num_spaces));
+            paragraphs.push(...this.certification_text(translation_lang));
+
+            if(this.add_legalisation_certification) {
+                // Legalisation text in the foreign language
+                paragraphs.push(...new_line(num_spaces));
+                paragraphs.push(...this.legalisation_text(translation_lang));
+            }
         }
 
         const certification_document = new Document({ sections: [{ children: paragraphs }] });
@@ -387,7 +400,7 @@ export class Certification {
 
         const title: Paragraph[] = [
             ...new_line(),
-            centredParagraph([bold(`LEGALISATION DE LA SIGNATURE DU TRADUCTEUR Nº. .....`)]),
+            centredParagraph([bold(`LEGALISATION DE LA SIGNATURE DU TRADUCTEUR Nº .....`)]),
             centredParagraph([normal(`Année ............ mois ............ jour ............`)]),
             ...new_line()
         ];
