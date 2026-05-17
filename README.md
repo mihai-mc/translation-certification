@@ -10,7 +10,9 @@
 
 This is a standalone project to auto-generate the Translator's Certification („Încheiere de traducere”) for certified translators („traducători autorizați”) in Romania.
 
-It takes care of putting the fields in the correct place without the translator having to remember what-goes-where. This is especially important when doing translations from Romanian into a foreign language, where a translator has to ensure that the text matches in Romanian and the foreign language (same number of pages, same titles, etc.).
+It takes care of putting the fields in the correct place without the translator having to remember what-goes-where.
+
+This is especially important when doing translations from Romanian into a foreign language, where a translator has to ensure that the text matches in Romanian and the foreign language (same number of pages, same titles, etc.).
 
 ## Supported Languages
 
@@ -23,7 +25,11 @@ While the text is currently displayed in English only, the project currently sup
 
 In Romania, this is known as: „Încheierea de legalizare a semnăturii traducătorului”.
 
-This feature auto-generates the Notary Public's legalisation certification that is applied to legalise the translator's signature. This used to be a quasi-requirement in the past in Romania, though recent legislative changes have abolished this arcane requirement. Still, there are still some instances where this requirement still lingers (particularly when dealing with the Romanian state), so the option of adding the Legalisation Certification can be toggled through the appropriate checkbox.
+This feature auto-generates the Notary Public's legalisation certification that is applied to legalise the translator's signature.
+
+This used to be a quasi-requirement in the past in Romania, though recent legislative changes have abolished this arcane requirement.
+
+Still, there are still some instances where this requirement still lingers (particularly when dealing with the Romanian state), so the option of adding the Legalisation Certification can be toggled through the appropriate checkbox.
 
 # Contributing to this project
 
