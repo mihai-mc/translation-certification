@@ -108,3 +108,44 @@ button:hover {
     background: #444;
     opacity: 0.6;
 }
+
+.checkbox {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    margin-top: 20px;
+    padding: 10px;
+
+    border: 2px solid #5c7cfa;
+    border-radius: 8px;
+
+    background: transparent;
+    color: #5c7cfa;
+
+    font-family: system-ui, sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    
+    cursor: pointer;
+
+    transition: all 0.15s ease;
+}
+
+.checkbox:hover {
+    border-color: #4c6ef5;
+    color: #4c6ef5;
+    background: rgba(92, 124, 250, 0.08);
+}
+
+.checkbox input[type="checkbox"]:checked {
+    accent-color: #5c7cfa;
+}
+
+.checkbox:has(input:checked) {
+    border-color: #4c6ef5;
+    background: rgba(92, 124, 250, 0.15);
+    color: black;
+}
+
+

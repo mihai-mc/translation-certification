@@ -53,12 +53,14 @@ export class Certification {
     public translator_details: TranslatorDetails;
     public document_details: DocumentDetails;
     public payment_details: PaymentDetails;
+    public add_legalisation_certification: boolean;
 
     // FIXME: Should add some tests to ensure the thing works end-to-end
     public constructor() {
         this.translator_details = new TranslatorDetails();
         this.document_details = new DocumentDetails();
         this.payment_details = new PaymentDetails();
+        this.add_legalisation_certification = false;
     }
 
     private certification_text(lang: Language): Paragraph[] {
