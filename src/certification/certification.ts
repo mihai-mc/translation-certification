@@ -75,7 +75,7 @@ export class Certification {
     }
 
     private legalisation_text(lang: Language): Paragraph[] {
-                switch (lang) {
+        switch (lang) {
             case languages.ROMANIAN: return this.legalisation_in_ro();
             case languages.ENGLISH: return this.legalisation_in_en();
             case languages.FRENCH: return this.legalisation_in_fr();
@@ -89,8 +89,8 @@ export class Certification {
 
         // Number of spaces to add each time
         const num_spaces: number = 10;
-        
-        if(this.add_legalisation_certification) {
+
+        if (this.add_legalisation_certification) {
             // Legalisation text in RO
             paragraphs.push(...new_line(num_spaces));
             paragraphs.push(...this.legalisation_text(languages.ROMANIAN));
@@ -104,7 +104,7 @@ export class Certification {
             paragraphs.push(...new_line(num_spaces));
             paragraphs.push(...this.certification_text(translation_lang));
 
-            if(this.add_legalisation_certification) {
+            if (this.add_legalisation_certification) {
                 // Legalisation text in the foreign language
                 paragraphs.push(...new_line(num_spaces));
                 paragraphs.push(...this.legalisation_text(translation_lang));

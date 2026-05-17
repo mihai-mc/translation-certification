@@ -18,7 +18,7 @@
     background: #1e1e2f;
     color: #eee;
     font-family: system-ui, sans-serif;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
 }
 
 .form-card label {
@@ -28,7 +28,8 @@
     opacity: 0.8;
 }
 
-.form-card input, .form-card select {
+.form-card input,
+.form-card select {
     width: 100%;
     box-sizing: border-box;
     margin-top: 6px;
@@ -126,7 +127,7 @@ button:hover {
     font-family: system-ui, sans-serif;
     font-size: 1rem;
     font-weight: 600;
-    
+
     cursor: pointer;
 
     transition: all 0.15s ease;
@@ -147,5 +148,3 @@ button:hover {
     background: rgba(92, 124, 250, 0.15);
     color: black;
 }
-
-
